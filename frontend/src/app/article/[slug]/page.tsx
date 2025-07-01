@@ -37,8 +37,9 @@ async function getArticle(slug: string) {
   return res.json();
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticle(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticle(slug);
   if (!article) return <div className="p-8 text-red-500">Article not found</div>;
 
   return (
