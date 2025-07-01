@@ -2,7 +2,6 @@
 import { fetchArticles } from '../api';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import AuthButton from '../components/AuthButton';
 import CrawlerTriggerButton from '../components/CrawlerTriggerButton';
 import Image from 'next/image';
 import TwitterTrendsButton from '../components/TwitterTrendsButton';
@@ -62,10 +61,10 @@ export default function Home() {
           <div>No articles found.</div>
         ) : (
           <ul className="space-y-6">
-            {filtered.map((article: any) => (
+            {filtered.map((article: { _id: string; media?: string[]; title: string; slug: string; meta?: string; content?: string; user?: { name?: string; email?: string } }) => (
               <li key={article._id} className="bg-white border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col gap-2">
                 {article.media && article.media[0] && (
-                  <img src={`${API_BASE_URL}${article.media[0]}`} alt={article.title} className="w-full h-40 object-cover rounded mb-2" />
+                  <Image src={`${API_BASE_URL}${article.media[0]}`} alt={article.title} width={800} height={160} className="w-full h-40 object-cover rounded mb-2" unoptimized />
                 )}
                 <h2 className="text-xl font-semibold mb-1">
                   <Link href={`/article/${article.slug}`} className="hover:underline text-blue-700">{article.title}</Link>

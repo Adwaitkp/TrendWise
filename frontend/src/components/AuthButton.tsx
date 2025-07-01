@@ -1,5 +1,6 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from 'next/image';
 
 function AuthButton() {
   const { data: session, status } = useSession();
@@ -12,7 +13,7 @@ function AuthButton() {
     return (
       <div className="flex items-center gap-3">
         {session.user?.image && (
-          <img src={session.user.image} alt="avatar" className="w-8 h-8 rounded-full border" />
+          <Image src={session.user.image} alt="avatar" width={32} height={32} className="w-8 h-8 rounded-full border" unoptimized />
         )}
         <span className="font-medium text-gray-700">{session.user?.name}</span>
         <button

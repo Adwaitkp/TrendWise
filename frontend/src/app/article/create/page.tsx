@@ -49,15 +49,16 @@ export default function CreateArticlePage() {
           } else {
             errorMsg = await res.text();
           }
-        } catch (e) {
+        } catch {
           // Ignore parsing errors
         }
         throw new Error(errorMsg);
       }
       setSuccess("Article created successfully!");
       setTimeout(() => router.push("/"), 1500);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError('An unknown error occurred');
     } finally {
       setLoading(false);
     }

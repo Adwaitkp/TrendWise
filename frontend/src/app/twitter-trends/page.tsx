@@ -17,7 +17,7 @@ const TwitterTrendsPage = () => {
         } else {
           setError('No trends found');
         }
-      } catch (err) {
+      } catch {
         setError('Failed to fetch Twitter trends');
       } finally {
         setLoading(false);

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import ClientCommentSection from './ClientCommentSection';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';
 
@@ -56,7 +57,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       </div>
       <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
       {article.media && article.media[0] && (
-        <img src={`${API_BASE_URL}${article.media[0]}`} alt={article.title} className="w-full h-60 object-cover rounded mb-4" />
+        <Image src={`${API_BASE_URL}${article.media[0]}`} alt={article.title} width={800} height={240} className="w-full h-60 object-cover rounded mb-4" unoptimized />
       )}
       <div className="text-gray-700 mb-4">{article.meta}</div>
       <article className="prose prose-lg" dangerouslySetInnerHTML={{ __html: article.content }} />

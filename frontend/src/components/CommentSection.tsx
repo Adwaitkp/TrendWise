@@ -6,7 +6,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function CommentSection({ articleId }: { articleId: string }) {
   const { data: session } = useSession();
-  const [comments, setComments] = useState<any[]>([]);
+  type Comment = { _id?: string; user: string; comment: string; createdAt: string };
+  const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
