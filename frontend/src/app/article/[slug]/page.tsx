@@ -37,7 +37,7 @@ async function getArticle(slug: string) {
   return res.json();
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: { params: { [key: string]: string }; searchParams?: { [key: string]: string | string[] | undefined } }) {
   const article = await getArticle(params.slug);
   if (!article) return <div className="p-8 text-red-500">Article not found</div>;
 
