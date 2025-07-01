@@ -6,8 +6,18 @@ import CrawlerTriggerButton from '../components/CrawlerTriggerButton';
 import Image from 'next/image';
 import TwitterTrendsButton from '../components/TwitterTrendsButton';
 
+interface Article {
+  _id: string;
+  media?: string[];
+  title: string;
+  slug: string;
+  meta?: string;
+  content?: string;
+  user?: { name?: string; email?: string };
+}
+
 export default function Home() {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
@@ -20,7 +30,7 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = articles.filter((article: any) =>
+  const filtered = articles.filter((article: Article) =>
     article.title.toLowerCase().includes(search.toLowerCase()) ||
     (article.meta && article.meta.toLowerCase().includes(search.toLowerCase()))
   );
@@ -61,7 +71,7 @@ export default function Home() {
           <div>No articles found.</div>
         ) : (
           <ul className="space-y-6">
-            {filtered.map((article: { _id: string; media?: string[]; title: string; slug: string; meta?: string; content?: string; user?: { name?: string; email?: string } }) => (
+            {filtered.map((article: Article) => (
               <li key={article._id} className="bg-white border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col gap-2">
                 {article.media && article.media[0] && (
                   <Image src={`${API_BASE_URL}${article.media[0]}`} alt={article.title} width={800} height={160} className="w-full h-40 object-cover rounded mb-2" unoptimized />

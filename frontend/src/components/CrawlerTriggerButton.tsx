@@ -18,7 +18,7 @@ export default function CrawlerTriggerButton() {
     try {
       const res = await fetch(`${API_BASE_URL}/crawler/run`, { method: "POST" });
       if (!res.ok) throw new Error("Failed to trigger crawler");
-      const data = await res.json();
+      await res.json();
       setMessage("Crawler triggered successfully!");
     } catch {
       setMessage("Failed to trigger crawler");
